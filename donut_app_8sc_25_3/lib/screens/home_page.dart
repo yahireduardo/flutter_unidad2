@@ -1,5 +1,10 @@
-import 'package:donut_app_8sc_25_3/utils/my_tab.dart';
+import 'package:donut_app_8sc_25_3/tab/donut_tab.dart';
+import 'package:donut_app_8sc_25_3/tab/burger_tab.dart';
+import 'package:donut_app_8sc_25_3/tab/smoothie_tab.dart';
+import 'package:donut_app_8sc_25_3/tab/pancake_tab.dart';
+import 'package:donut_app_8sc_25_3/tab/pizza_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:donut_app_8sc_25_3/utils/my_tab.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,29 +14,37 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _current = 0; // índice seleccionado
 
-  // my tabs
-  List<Widget> myTabs = const [
-    //donut tab
-    MyTab(iconPath: 'lib/icons/donut.png', label: 'Donuts'),
+  late List<Widget> myTabs;
 
-    //burger tab
-     MyTab(iconPath: 'lib/icons/burger.png', label: 'Burger'),
+  @override
+  void initState() {
+    super.initState();
+    myTabs = _buildTabs(_current);
+  }
 
-    //smoothie tab
-     MyTab(iconPath: 'lib/icons/smoothie.png', label: 'Smoothie'),
+  List<Widget> _buildTabs(int selected) {
+    return [
+      MyTab(iconPath: 'lib/icons/donut.png',    label: 'Donuts',   selected: selected == 0),
+      MyTab(iconPath: 'lib/icons/burger.png',   label: 'Burger',   selected: selected == 1),
+      MyTab(iconPath: 'lib/icons/smoothie.png', label: 'Smoothie', selected: selected == 2),
+      MyTab(iconPath: 'lib/icons/pancakes.png', label: 'PanCake',  selected: selected == 3),
+      MyTab(iconPath: 'lib/icons/pizza.png',    label: 'Pizza',    selected: selected == 4),
+    ];
+  }
 
-    //pancake tab
-     MyTab(iconPath: 'lib/icons/pancakes.png', label: 'PanCake'),
+  void _setSelected(int i) {
+    setState(() {
+      _current = i;
+      myTabs = _buildTabs(_current);
+    });
+  }
 
-    //pizza tab
-     MyTab(iconPath: 'lib/icons/pizza.png', label: 'Pizza'),
-
-  ];
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: myTabs.length,
+      length: 5,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -39,83 +52,73 @@ class _HomePageState extends State<HomePage> {
           leading: Padding(
             padding: const EdgeInsets.only(left: 24.0),
             child: IconButton(
-              icon: Icon(
-              Icons.menu,
-              color: Colors.grey[800],
-              size: 36,
-            ),
-            onPressed: () {
-              //open drawer
-            },
+              icon: Icon(Icons.menu, color: Colors.grey[800], size: 36),
+              onPressed: () {},
             ),
           ),
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 24.0),
               child: IconButton(
-                icon: Icon(
-              Icons.person,
-              color: Colors.grey[800],
-              size: 36,
+                icon: Icon(Icons.person, color: Colors.grey[800], size: 36),
+                onPressed: () {},
               ),
-              onPressed: (){
-                // account button taped
-              },
-              ),
-            )
-          ]
+            ),
+          ],
         ),
-        body: Column(children: [
-          //i want to eat
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 36.0, vertical: 18),
-            child: Row(
-              children: const [
-                Text(
-                  'I want to ',
-                  style: TextStyle(fontSize: 24),
-                  ),
+        body: Column(
+          children: [
+            // Título
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 36.0, vertical: 18),
+              child: Row(
+                children: [
+                  Text('I want to ', style: TextStyle(fontSize: 24)),
                   Text(
-                  'Eat',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline
+                    'Eat',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
                     ),
                   ),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 24),
-
-
-          // tab bar
-          TabBar(
-            isScrollable: true,
-            tabs: myTabs,
-
-            labelColor: Colors.black, // color del texto seleccionado
-            unselectedLabelColor: Colors.grey, //color del texto no seleccionado
-            labelStyle: const TextStyle(fontWeight: FontWeight.w700),
-
-            // indicador tipo "borde redondeado" (sin sombra, sin relleno)
-            indicatorSize: TabBarIndicatorSize.tab,
-            indicatorPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-            indicator:BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(22),
-              border: Border.all(
-                color: Colors.black,
-                width: 2,
+                ],
               ),
             ),
-            // quita cualquier underline por defecto
-            overlayColor: WidgetStateProperty.all(Colors.transparent),
-            )
+            const SizedBox(height: 24),
 
-          // tab bar view
-        ],),
+            // TabBar
+            TabBar(
+              isScrollable: true,
+              tabs: myTabs,
+
+              // Texto: gris (no seleccionado) -> negro (seleccionado)
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey,
+              labelStyle: const TextStyle(fontWeight: FontWeight.w700),
+              unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w400),
+
+              // Indicador invisible para no envolver el texto, pero
+              // con peso > 0 para evitar el assert de TabBar.
+              indicatorColor: Colors.transparent,
+              indicatorWeight: 1.0,
+              overlayColor: WidgetStateProperty.all(Colors.transparent),
+
+              onTap: _setSelected,
+            ),
+
+            //3. contenido de pestañas (TabBarView)
+            Expanded(
+              child: TabBarView(children: [
+                DonutTab(),
+                BurgerTab(),
+                SmoothieTab(),
+                PanCakeTab(),
+                PizzaTab(),
+              ]),
+            ),
+          ],
+        ),
       ),
     );
   }
