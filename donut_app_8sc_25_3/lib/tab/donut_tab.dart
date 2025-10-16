@@ -22,7 +22,11 @@ class DonutTab extends StatelessWidget {
         crossAxisCount:  2,
         //relación de aspecto ancho/alto
         childAspectRatio: 1 / 1.4,
-    ),
+        //Espacio entre filas
+        mainAxisSpacing: 10,
+        //Espacio entre columnas
+        crossAxisSpacing: 10,
+      ),
       itemCount: donutOnSale.length,
         // Lo que se va a construir en el grid
       itemBuilder: (context, index){
