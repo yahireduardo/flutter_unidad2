@@ -16,16 +16,17 @@ class DonutTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      padding: EdgeInsets.all(25),
       // se encarga de acomodar elementos dentro del grid
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         //Número de columnas
         crossAxisCount:  2,
         //relación de aspecto ancho/alto
-        childAspectRatio: 1 / 1.4,
+        childAspectRatio: 1 / 1.5,
         //Espacio entre filas
-        mainAxisSpacing: 10,
+        mainAxisSpacing: 25,
         //Espacio entre columnas
-        crossAxisSpacing: 10,
+        crossAxisSpacing: 25,
       ),
       itemCount: donutOnSale.length,
         // Lo que se va a construir en el grid
