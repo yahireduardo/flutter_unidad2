@@ -84,7 +84,6 @@ This project helped to understand:
 - How to implement a functional navigation bar  
 - The importance of clean UI design and code organization  
 
-
 ---
 
 ⭐ *“Coding is like making donuts — the process matters as much as the result.”* 🍩
