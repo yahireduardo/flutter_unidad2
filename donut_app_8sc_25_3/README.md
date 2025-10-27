@@ -49,8 +49,6 @@ lib/
 ┗ assets/
 ┗ (multimedia files)
 
-yaml
-Copiar código
 
 ---
 
