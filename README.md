@@ -49,8 +49,6 @@ lib/
 ┗ assets/
 ┗ (multimedia files)
 
-yaml
-Copiar código
 
 ---
 
@@ -64,9 +62,7 @@ Copiar código
 ---
 
 ## 🎥 Demo
-![App Demo](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2NwZml1eXRldm9sZWlnczJxZHVnc2p1NXZjZGJldjZ5eXRqa2xneSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/26FPpMHLmCjj5brqo/giphy.gif)
-
-> *(Replace the GIF link above with your own demo once recorded)*
+![App Demo](https://github.com/yahireduardo/flutter_unidad2/blob/main/donut_app_8sc_25_3/assets/gif_demo.gif)
 
 ---
 
