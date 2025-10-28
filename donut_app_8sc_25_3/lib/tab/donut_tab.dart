@@ -28,6 +28,7 @@ class DonutTab extends StatelessWidget {
         //Espacio entre columnas
         crossAxisSpacing: 25,
       ),
+      //cuantos elementos hay en el grid
       itemCount: donutOnSale.length,
         // Lo que se va a construir en el grid
       itemBuilder: (context, index){
